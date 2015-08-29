@@ -2,33 +2,34 @@
  * Copyright Mehmet Gerceker (c) 2015.
  */
 
-package com.mehmetg.simpletodo;
+package com.mehmetg.simpletodo.activities;
 
+import android.app.FragmentManager;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.mehmetg.simpletodo.R;
+import com.mehmetg.simpletodo.TodoListEditor;
 import com.mehmetg.simpletodo.adapters.TodoListAdapter;
 import com.mehmetg.simpletodo.model.TodoListItem;
+import com.mehmetg.simpletodo.TodoListEditor.OnFragmentInteractionListener;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.output.TaggedOutputStream;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class TodoActivity extends AppCompatActivity {
+public class TodoActivity extends AppCompatActivity implements OnFragmentInteractionListener{
 
     ArrayList<TodoListItem> items;
     TodoListAdapter itemsAdapter;
@@ -49,7 +50,7 @@ public class TodoActivity extends AppCompatActivity {
         this.setupListViewListener();
 
     }
-
+    /*
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenuInfo menuInfo) {
@@ -86,22 +87,32 @@ public class TodoActivity extends AppCompatActivity {
         this.writeTodoItemsFile();
         return true;
     }
-
+    */
     public void setupListViewListener() {
-        /*
+
         this.lvItems.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
 
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapter,
                                                    View item, int pos, long id) {
-                        items.remove(pos);
+                        TodoListItem todoItem = items.get(pos);
+                        //Launch fragment.
+                        FragmentManager fm = getFragmentManager();
+                        TodoListEditor tde = TodoListEditor.newInstance("","");
+                        fm.beginTransaction()
+                                .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                                .add(R.id.editor_holder, tde)
+                                .addToBackStack(null)
+                                //.show(tde)
+                                .commit();
+                        ;
                         itemsAdapter.notifyDataSetChanged();
                         writeTodoItemsFile();
                         return true;
                     }
                 });
-        */
+
         this.lvItems.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -129,8 +140,13 @@ public class TodoActivity extends AppCompatActivity {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {
-            List<String> items = FileUtils.readLines(todoFile);
-
+            List<String> lines = FileUtils.readLines(todoFile);
+            for (String line:lines){
+                TodoListItem tdli = TodoListItem.fromString(line);
+                if (tdli != null) {
+                    this.items.add(tdli);
+                }
+            }
             return true;
         } catch (IOException e) {
             this.items = new ArrayList<>();
@@ -142,8 +158,18 @@ public class TodoActivity extends AppCompatActivity {
     private boolean writeTodoItemsFile() {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
+
         try {
-            FileUtils.writeLines(todoFile, this.items);
+            if (this.items == null || this.items.size() < 1) {
+                todoFile.delete();
+            } else {
+                boolean append = false;
+                for (TodoListItem item : this.items) {
+                    String s = item.toString();
+                    FileUtils.writeStringToFile(todoFile, s + "\n", append);
+                    append = true;
+                }
+            }
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -157,6 +183,11 @@ public class TodoActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+
+    public void onFragmentInteraction(Uri uri){
+        System.out.print(String.format("Interact! %s", uri.toString()));
     }
 
 }
