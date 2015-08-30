@@ -30,7 +30,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/btnAddItem"
-        android:layout_toLeftOf="@+id/btnAddItem" />
+        android:layout_toLeftOf="@+id/btnAddItem"
+        android:hint="@string/task_name_hint"
+        android:maxLines="@integer/max_input_lines" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -47,6 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/editor_holder"
-        android:layout_centerHorizontal="true"></FrameLayout>
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:layout_above="@+id/etNewItem"></FrameLayout>
 
 </RelativeLayout>

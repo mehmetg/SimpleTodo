@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright Mehmet Gerceker (c) 2015.
+  -->
+
+<resources>
+    <integer name="max_input_lines">2</integer>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright Mehmet Gerceker (c) 2015.
+  -->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromYDelta="-1"
+    android:toYDelta="1"
+    android:duration="100"
+    android:interpolator="@anim/cycle" />

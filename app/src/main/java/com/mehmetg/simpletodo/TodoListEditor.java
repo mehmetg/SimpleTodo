@@ -1,10 +1,12 @@
 package com.mehmetg.simpletodo;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,7 @@ import android.view.ViewGroup;
  * Use the {@link TodoListEditor#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TodoListEditor extends Fragment {
+public class TodoListEditor extends DialogFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -106,5 +108,7 @@ public class TodoListEditor extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+
 
 }

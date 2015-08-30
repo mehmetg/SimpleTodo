@@ -9,9 +9,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -26,6 +31,7 @@ import org.apache.commons.io.output.TaggedOutputStream;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,19 +41,25 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
     TodoListAdapter itemsAdapter;
     ListView lvItems;
     EditText editText;
+    Button addButton;
+    TodoListEditor todoListEditor;
+    Animation shake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
         lvItems = (ListView) findViewById(R.id.lvItems);
+        editText = (EditText) findViewById(R.id.etNewItem);
+        addButton = (Button) findViewById(R.id.btnAddItem);
+        shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         items = new ArrayList<>();
-
         this.readTodoItemsFile();
         itemsAdapter = new TodoListAdapter(this, R.layout.todo_list_row, items);
         lvItems.setAdapter(itemsAdapter);
         registerForContextMenu(lvItems);
         this.setupListViewListener();
+        this.configureInputs();
 
     }
     /*
@@ -99,12 +111,10 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
                         TodoListItem todoItem = items.get(pos);
                         //Launch fragment.
                         FragmentManager fm = getFragmentManager();
-                        TodoListEditor tde = TodoListEditor.newInstance("","");
+                        todoListEditor = TodoListEditor.newInstance("", "");
                         fm.beginTransaction()
                                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                                .add(R.id.editor_holder, tde)
-                                .addToBackStack(null)
-                                //.show(tde)
+                                .add(R.id.editor_holder, todoListEditor)
                                 .commit();
                         ;
                         itemsAdapter.notifyDataSetChanged();
@@ -128,12 +138,12 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
     }
 
     public void onAddItem(View v) {
-        editText = (EditText) findViewById(R.id.etNewItem);
         TodoListItem newItem = new TodoListItem(this.editText.getText().toString().trim());
         itemsAdapter.add(newItem);
         editText.setText("");
         this.writeTodoItemsFile();
         this.hideSoftKeyboard();
+        v.startAnimation(shake);
     }
 
     private boolean readTodoItemsFile() {
@@ -188,6 +198,41 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
 
     public void onFragmentInteraction(Uri uri){
         System.out.print(String.format("Interact! %s", uri.toString()));
+    }
+
+    //put this into an interface of the editor fragment
+    public void onClick(View v){
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction()
+                .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                .hide(todoListEditor)
+                .commit();
+    }
+
+    private void configureInputs() {
+        addButton.setEnabled(false);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                boolean enabled = editText.getText().toString().trim().length() > 0;
+                addButton.setEnabled(enabled);
+                if (enabled) {
+                    addButton.startAnimation(shake);
+                }
+
+            }
+        });
     }
 
 }
