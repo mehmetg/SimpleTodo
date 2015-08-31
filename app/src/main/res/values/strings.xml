@@ -5,12 +5,14 @@
 <resources>
     <string name="app_name">SimpleTodo</string>
     <string name="action_settings">Settings</string>
-    <string name="done">Done</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="task_name_hint">Task Name</string>
+    <string name="completed">Completed</string>
+    <string name="edit">Edit Task</string>
+    <string name="delete">Delete Task</string>
+    <string name="task_name">Task Name</string>
+    <string name="task_created_date">Task Created</string>
+    <string name="task_due_date">Task Due</string>
     <string-array name="menu">
-        <item>@string/done</item>
+        <item>@string/completed</item>
         <item>@string/edit</item>
         <item>@string/delete</item>
     </string-array>
