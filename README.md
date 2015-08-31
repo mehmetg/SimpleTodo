@@ -26,6 +26,13 @@ Simple Todo List for Android
     * Items completed show up grey and normal text.
     * Items not completed show up bold and black.
 
+## Known Issues:
+
+* Date entry should use date picker.
+* Issue entry should be a fragment and be swapped with edit window.
+* Data should be stored in sqlite, not csv.
+* Data could be passed between activity and fragment without accessors.
+
 ## Sample Walk-Through
 
 * Add Item
@@ -38,4 +45,5 @@ Simple Todo List for Android
     * Completed
 * Load list on launch
 
+### Walk-Through GIF
 ![SimpleTodo](./docs/walkthrough.gif "SimpleTodo Walk-Through")
