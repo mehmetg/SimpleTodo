@@ -2,108 +2,107 @@
 <!--
   ~ Copyright Mehmet Gerceker (c) 2015.
   -->
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content" android:orientation="vertical"
-    android:layout_width="fill_parent">
-    <TableRow android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_weight="2">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:shrinkColumns="*"
+    android:stretchColumns="*"
+    android:rowCount="1"
+    android:columnCount="4"
+    android:focusable="false">
 
-        <TextView android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:textColor="@color/black"
-            android:gravity="left"
-            android:id="@+id/description"
-            android:text="description"
-            android:clickable="false"
-            android:padding="@dimen/activity_vertical_margin"
-            android:textStyle="bold"
-            android:typeface="monospace"
-            />
+    <TextView android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:gravity="left"
+        android:id="@+id/description"
+        android:text="description"
+        android:clickable="false"
+        android:padding="@dimen/activity_vertical_margin"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:layout_column="0"
+        android:layout_columnSpan="1"
+        android:layout_row="0"
+        android:layout_gravity="top"
+        android:layout_columnWeight="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/linearLayout"
+        android:layout_toLeftOf="@+id/linearLayout"
+        android:maxLines="@integer/max_input_lines"
+        android:singleLine="false"
+        android:focusable="false"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_column="1"
+        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/linearLayout2"
+        android:layout_toStartOf="@+id/linearLayout2">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout_desc"
+            android:textSize="12dp"
+            android:text="@string/task_due_date"
+            android:id="@+id/task_due_label"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/linearLayout3"
-            android:weightSum="1"
-            android:layout_column="1">
+            android:textStyle="bold"
+            android:editable="false"
+            android:layout_gravity="top"
+            android:focusable="false" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout_desc"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/linearLayout" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/task_due_date"
-                    android:id="@+id/task_due_label"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:textStyle="bold"
-                    android:editable="false" />
-
-                <TextView
-                    android:layout_width="83dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:ems="10"
-                    android:id="@+id/task_due_date" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout_desc"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/linearLayout2" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/task_created_date"
-                    android:id="@+id/task_created_label"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:textStyle="bold"
-                    android:editable="false" />
-
-                <TextView
-                    android:layout_width="83dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:ems="10"
-                    android:id="@+id/task_created_date" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <ImageView
-            android:gravity="center"
-            android:layout_width="match_parent"
+        <TextView
+            android:textSize="12dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
-            android:id="@+id/status_indicator_image"
-            android:layout_column="30"
-            android:src="@mipmap/ic_x"
-            android:contentDescription="image"
-            android:layout_gravity="center" />
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/task_due_date"
+            android:focusable="false" />
 
-    </TableRow>
+    </LinearLayout>
 
-</TableLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_column="2"
+        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:focusable="false" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:text="@string/task_created_date"
+            android:id="@+id/task_created_label"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textStyle="bold"
+            android:editable="false"
+            android:focusable="false" />
+
+        <TextView
+            android:textSize="12dp"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/task_created_date"
+            android:focusable="false" />
+    </LinearLayout>
+
+</RelativeLayout>

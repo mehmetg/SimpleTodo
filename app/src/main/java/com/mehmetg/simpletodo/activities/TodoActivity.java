@@ -56,49 +56,12 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
         this.readTodoItemsFile();
         itemsAdapter = new TodoListAdapter(this, R.layout.view_todo_list_row, items);
         lvItems.setAdapter(itemsAdapter);
-        registerForContextMenu(lvItems);
         this.setupListViewListener();
         this.configureInputs();
 
-    }
-    /*
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenuInfo menuInfo) {
-        this.hideSoftKeyboard();
-        if (v.getId() == R.id.lvItems) {
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-            menu.setHeaderTitle(items.get(info.position).getItemText());
-            String[] menuItems = getResources().getStringArray(R.array.menu);
-            ArrayList<String> menuList = new ArrayList<>(Arrays.asList(menuItems));
-            if (items.get(info.position).isCompleted()) {
-                menuList.remove(getString(R.string.Done));
-            }
-            for (int i = 0; i < menuList.size(); i++) {
-                menu.add(Menu.NONE, i, i, menuList.get(i));
-            }
-        }
+
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        String menuItemName = item.getTitle().toString();
-        // String listItemName = items.get(info.position).getItemText();
-        if (menuItemName.equals(getString(R.string.Edit))) {
-            //this.items.remove(info.position);
-            //this.itemsAdapter.notifyDataSetChanged();
-            //this.writeTodoItemsFile();
-        } else if (menuItemName.equals(getString(R.string.Delete))) {
-            this.items.remove(info.position);
-        } else if (menuItemName.equals(getString(R.string.Done))) {
-            this.items.get(info.position).setCompleted(true);
-        }
-        this.itemsAdapter.notifyDataSetChanged();
-        this.writeTodoItemsFile();
-        return true;
-    }
-    */
     public void setupListViewListener() {
 
         this.lvItems.setOnItemLongClickListener(
@@ -110,7 +73,7 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
                         TodoListItem todoItem = items.get(pos);
                         //Launch fragment.
                         FragmentManager fm = getFragmentManager();
-                        todoListEditor = TodoListEditor.newInstance("", "");
+                        todoListEditor = TodoListEditor.newInstance(todoItem.toString(), pos);
                         fm.beginTransaction()
                                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                                 .add(R.id.editor_holder, todoListEditor)
@@ -195,19 +158,33 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
     }
 
 
-    public void onFragmentInteraction(Uri uri){
-        System.out.print(String.format("Interact! %s", uri.toString()));
+    public void onFragmentInteraction(TodoListItem item){
+        System.out.print(String.format("Interact! %s", item.toString()));
     }
 
     //put this into an interface of the editor fragment
-    public void onClick(View v){
+    public void onCloseClick(View v){
+        removeEditor();
+    }
+    public void onDeleteClick(View v){
+        int p = todoListEditor.getPosition();
+        this.items.remove(p);
+        itemsAdapter.notifyDataSetChanged();
+        removeEditor();
+    }
+    public void onSaveClick(View v){
+        int p = todoListEditor.getPosition();
+        this.items.set(p, todoListEditor.getItem());
+        itemsAdapter.notifyDataSetChanged();
+        removeEditor();
+    }
+    private void removeEditor(){
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction()
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                .hide(todoListEditor)
+                .remove(todoListEditor)
                 .commit();
     }
-
     private void configureInputs() {
         addButton.setEnabled(false);
 

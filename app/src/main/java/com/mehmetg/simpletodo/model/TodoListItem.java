@@ -6,20 +6,21 @@ package com.mehmetg.simpletodo.model;
 
 import android.graphics.Color;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by mehmetgerceker on 8/28/15.
  */
 public class TodoListItem {
 
+    public final static String NONE = "None";
     private String itemText;
     private boolean completed;
-    private Date dateCreated;
-    private Date dateDue;
+    private String dateCreated;
+    private String dateDue;
     private int color;
-
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
     public String getItemText() {
         return itemText;
@@ -41,19 +42,19 @@ public class TodoListItem {
         this.completed = !this.completed;
     }
 
-    public Date getDateDue() {
+    public String getDateDue() {
         return dateDue;
     }
 
-    public void setDateDue(Date dateDue) {
+    public void setDateDue(String dateDue) {
         this.dateDue = dateDue;
     }
 
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    private void setDateCreated(Date dateCreated) {
+    private void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 
@@ -68,8 +69,8 @@ public class TodoListItem {
     public TodoListItem(String text) {
         this.itemText = text;
         this.completed = false;
-        this.dateCreated = Calendar.getInstance().getTime();
-        this.dateDue = null;
+        this.dateCreated = SIMPLE_DATE_FORMAT.format(Calendar.getInstance().getTime());
+        this.dateDue = NONE;
         this.color = Color.TRANSPARENT;
     }
 
@@ -77,14 +78,14 @@ public class TodoListItem {
         StringBuilder sb = new StringBuilder();
         sb.append(this.itemText)
                 .append(",")
-                .append(Long.toString(this.dateCreated.getTime()))
+                .append(this.dateCreated)
                 .append(",");
 
         if (this.dateDue != null){
-            sb.append(Long.toString(this.dateDue.getTime()))
+            sb.append(this.dateDue)
                     .append(",");
         } else {
-            sb.append("Null")
+            sb.append(NONE)
                     .append(",");
         }
         sb.append(Integer.toString(this.color))
@@ -98,17 +99,9 @@ public class TodoListItem {
         String[] parts = csvLine.split(",");
         TodoListItem item = null;
         try {
-            Calendar cal = Calendar.getInstance();
             item = new TodoListItem(parts[0]);
-
-            cal.setTimeInMillis(Long.parseLong(parts[1]));
-            item.setDateCreated(cal.getTime());
-            if (parts[2].equals("Null")) {
-                item.setDateDue(null);
-            } else {
-                cal.setTimeInMillis(Long.parseLong(parts[2]));
-                item.setDateDue(cal.getTime());
-            }
+            item.setDateCreated(parts[1]);
+            item.setDateDue(parts[2]);
             item.setColor(Integer.parseInt(parts[3]));
             item.setCompleted(Boolean.parseBoolean(parts[4]));
         } catch (Exception e) {

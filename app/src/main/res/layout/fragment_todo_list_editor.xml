@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:id="@+id/fragment_todo_list_editor"
     android:name=""
+    android:background="@android:color/background_light"
+    android:clickable="true"
     tools:context="com.mehmetg.simpletodo.fragments.TodoListEditor">
     <!-- TODO: Update blank fragment layout -->
 
@@ -31,12 +33,12 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/task_desc"
             android:layout_below="@+id/tv_task_name_label"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:lines="@integer/max_input_lines" />
+            android:maxLines="@integer/max_input_lines" />
 
     </LinearLayout>
 
@@ -78,7 +80,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="date"
                 android:ems="10"
-                android:id="@+id/editText2" />
+                android:id="@+id/date_due"
+                android:hint="mm/dd/yyyy" />
 
         </LinearLayout>
 
@@ -106,9 +109,9 @@
             <TextView
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
-                android:inputType="date"
+                android:editable="false"
                 android:ems="10"
-                android:id="@+id/editText3" />
+                android:id="@+id/date_created" />
         </LinearLayout>
 
     </LinearLayout>
@@ -117,9 +120,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/completed"
-        android:id="@+id/checkBox"
+        android:id="@+id/completed"
         android:paddingTop="-50dp"
         android:layout_below="@+id/linear_layout_dates"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/btnSave"
+        android:layout_below="@+id/completed"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onSaveClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:id="@+id/btnClose"
+        android:layout_alignTop="@+id/btnSave"
+        android:layout_centerHorizontal="true"
+        android:onClick="onCloseClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/btnDelete"
+        android:layout_below="@+id/completed"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/delete_button"
+        android:onClick="onDeleteClick"/>
 </RelativeLayout>

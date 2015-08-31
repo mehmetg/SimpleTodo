@@ -43,7 +43,8 @@
         android:layout_above="@+id/btnAddItem"
         android:divider="#383d6b97"
         android:dividerHeight="1px"
-        android:transcriptMode="alwaysScroll" />
+        android:transcriptMode="alwaysScroll"
+        android:focusable="false" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -51,6 +52,6 @@
         android:id="@+id/editor_holder"
         android:layout_centerHorizontal="true"
         android:clickable="false"
-        android:layout_above="@+id/etNewItem"></FrameLayout>
+        android:layout_alignBottom="@+id/etNewItem"></FrameLayout>
 
 </RelativeLayout>

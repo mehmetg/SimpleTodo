@@ -4,6 +4,5 @@
   -->
 
 <resources>
-    <color name="black">#000000</color>
-    <color name="grey">#5b5b5b</color>
+    <color name="delete_button">#af0000</color>
 </resources>

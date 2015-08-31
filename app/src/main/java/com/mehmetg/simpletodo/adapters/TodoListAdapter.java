@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.mehmetg.simpletodo.R;
 import com.mehmetg.simpletodo.model.TodoListItem;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,9 +47,15 @@ public class TodoListAdapter extends ArrayAdapter<TodoListItem>{
         TodoListItem p = getItem(position);
 
         if (p != null) {
-            TextView t = (TextView) v.findViewById(R.id.description);
-            if (t != null) {
-                t.setText(p.getItemText());
+            TextView tvDesc = (TextView) v.findViewById(R.id.description);
+            TextView tvDueDate = (TextView) v.findViewById(R.id.task_due_date);
+            TextView tvCreatedDate = (TextView) v.findViewById(R.id.task_created_date);
+            if (tvDesc != null) {
+
+                tvCreatedDate.setText(p.getDateCreated());
+                tvDueDate.setText(p.getDateDue());
+
+                tvDesc.setText(p.getItemText());
                 this.setCompleted(v, p.isCompleted());
             }
         }
@@ -55,16 +63,32 @@ public class TodoListAdapter extends ArrayAdapter<TodoListItem>{
     }
 
     private void setCompleted(View v, boolean completed) {
-        ImageView statusIndicator = (ImageView) v.findViewById(R.id.status_indicator_image);
         TextView taskDescription = (TextView) v.findViewById(R.id.description);
+        TextView tvDueDate = (TextView) v.findViewById(R.id.task_due_date);
         if (completed) {
-            statusIndicator.setImageResource(R.drawable.ic_v);
             taskDescription.setTypeface(null, Typeface.NORMAL);
-            //taskDescription.setTextColor(v.getResources().getColor(R.color.grey, null));
+            taskDescription.setTextColor(Color.GRAY);
+            tvDueDate.setTextColor(Color.BLACK);
         } else {
-            statusIndicator.setImageResource(R.drawable.ic_x);
+            //get today's date
+            String dueDateString = tvDueDate.getText().toString();
+            if (!dueDateString.equals(TodoListItem.NONE) && dueDateString.length() > 0) {
+                try {
+                    Date dueDate = TodoListItem.SIMPLE_DATE_FORMAT.parse(dueDateString);
+                    Date now = Calendar.getInstance().getTime();
+                    if (dueDate.before(now)) {
+                        tvDueDate.setTextColor(Color.RED);
+                    } else {
+                        tvDueDate.setTextColor(Color.BLACK);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //if past due mark date red.
             taskDescription.setTypeface(null, Typeface.BOLD);
-            //taskDescription.setTextColor(v.getResources().getColor(R.color.black, null));
+            taskDescription.setTextColor(Color.BLACK);
         }
     }
 }
