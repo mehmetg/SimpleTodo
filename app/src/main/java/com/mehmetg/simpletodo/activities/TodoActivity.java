@@ -169,12 +169,14 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
     public void onDeleteClick(View v){
         int p = todoListEditor.getPosition();
         this.items.remove(p);
+        writeTodoItemsFile();
         itemsAdapter.notifyDataSetChanged();
         removeEditor();
     }
     public void onSaveClick(View v){
         int p = todoListEditor.getPosition();
         this.items.set(p, todoListEditor.getItem());
+        writeTodoItemsFile();
         itemsAdapter.notifyDataSetChanged();
         removeEditor();
     }
