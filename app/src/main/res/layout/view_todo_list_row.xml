@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright Mehmet Gerceker (c) 2015.
+  -->
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content" android:orientation="vertical"
+    android:layout_width="fill_parent">
+    <TableRow android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_weight="2">
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:textColor="@color/black"
+            android:gravity="left"
+            android:id="@+id/description"
+            android:text="description"
+            android:clickable="false"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout_desc"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/linearLayout3"
+            android:weightSum="1"
+            android:layout_column="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout_desc"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/task_due_date"
+                    android:id="@+id/task_due_label"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textStyle="bold"
+                    android:editable="false" />
+
+                <TextView
+                    android:layout_width="83dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:id="@+id/task_due_date" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout_desc"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout2" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/task_created_date"
+                    android:id="@+id/task_created_label"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textStyle="bold"
+                    android:editable="false" />
+
+                <TextView
+                    android:layout_width="83dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:id="@+id/task_created_date" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/status_indicator_image"
+            android:layout_column="30"
+            android:src="@mipmap/ic_x"
+            android:contentDescription="image"
+            android:layout_gravity="center" />
+
+    </TableRow>
+
+</TableLayout>

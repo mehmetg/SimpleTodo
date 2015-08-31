@@ -21,17 +21,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.mehmetg.simpletodo.R;
-import com.mehmetg.simpletodo.TodoListEditor;
+import com.mehmetg.simpletodo.fragments.TodoListEditor;
 import com.mehmetg.simpletodo.adapters.TodoListAdapter;
 import com.mehmetg.simpletodo.model.TodoListItem;
-import com.mehmetg.simpletodo.TodoListEditor.OnFragmentInteractionListener;
+import com.mehmetg.simpletodo.fragments.TodoListEditor.OnFragmentInteractionListener;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.output.TaggedOutputStream;
+
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
         shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         items = new ArrayList<>();
         this.readTodoItemsFile();
-        itemsAdapter = new TodoListAdapter(this, R.layout.todo_list_row, items);
+        itemsAdapter = new TodoListAdapter(this, R.layout.view_todo_list_row, items);
         lvItems.setAdapter(itemsAdapter);
         registerForContextMenu(lvItems);
         this.setupListViewListener();

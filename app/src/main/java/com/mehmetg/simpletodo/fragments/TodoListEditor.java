@@ -1,7 +1,5 @@
-package com.mehmetg.simpletodo;
+package com.mehmetg.simpletodo.fragments;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +8,8 @@ import android.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.mehmetg.simpletodo.R;
 
 
 /**

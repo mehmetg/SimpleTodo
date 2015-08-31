@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright Mehmet Gerceker (c) 2015.
+  -->
+
+<resources>
+    <color name="black">#000000</color>
+    <color name="grey">#5b5b5b</color>
+</resources>
