@@ -38,4 +38,4 @@ Simple Todo List for Android
     * Completed
 * Load list on launch
 
-![SimpleTodo](../docs/walkthrough.gif "SimpleTodo Walk-Through")
+![SimpleTodo](./docs/walkthrough.gif "SimpleTodo Walk-Through")
