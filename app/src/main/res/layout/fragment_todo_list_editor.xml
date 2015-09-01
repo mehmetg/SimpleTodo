@@ -75,13 +75,15 @@
                 android:textStyle="bold"
                 android:editable="false" />
 
-            <EditText
+            <TextView
                 android:layout_width="186dp"
                 android:layout_height="wrap_content"
                 android:inputType="date"
                 android:ems="10"
                 android:id="@+id/date_due"
-                android:hint="mm/dd/yyyy" />
+                android:hint="mm/dd/yyyy"
+                android:editable="false"
+                android:onClick="onDueDateClick"/>
 
         </LinearLayout>
 

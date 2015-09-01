@@ -13,10 +13,12 @@ import android.widget.TextView;
 import com.mehmetg.simpletodo.R;
 import com.mehmetg.simpletodo.model.TodoListItem;
 
+import org.w3c.dom.Text;
+
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
+ * Activities that DialogFragment this fragment must implement the
  * {@link TodoListEditor.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link TodoListEditor#newInstance} factory method to
@@ -28,17 +30,20 @@ public class TodoListEditor extends Fragment {
     private static final String ARG_PARAM1 = "item";
     private static final String ARG_PARAM2 = "pos";
 
-
-
-
     // TODO: Rename and change types of parameters
     private TodoListItem item;
 
     private int position;
     EditText etTaskName;
-    EditText etTaskDue;
+
+
+    TextView etTaskDue;
     TextView tvTaskCreated;
     CheckBox cbCompleted;
+
+    public TextView getEtTaskDue() {
+        return etTaskDue;
+    }
 
     public int getPosition() {
         return position;
@@ -89,7 +94,7 @@ public class TodoListEditor extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_todo_list_editor, container, false);
         etTaskName = (EditText) v.findViewById(R.id.task_desc);
-        etTaskDue = (EditText) v.findViewById(R.id.date_due);
+        etTaskDue = (TextView) v.findViewById(R.id.date_due);
         tvTaskCreated = (TextView) v.findViewById(R.id.date_created);
         cbCompleted = (CheckBox) v.findViewById(R.id.completed);
 

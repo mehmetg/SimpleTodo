@@ -4,6 +4,7 @@
 
 package com.mehmetg.simpletodo.activities;
 
+import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
@@ -17,8 +18,11 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.mehmetg.simpletodo.R;
 import com.mehmetg.simpletodo.fragments.TodoListEditor;
@@ -31,7 +35,9 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class TodoActivity extends AppCompatActivity implements OnFragmentInteractionListener{
@@ -43,6 +49,7 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
     Button addButton;
     TodoListEditor todoListEditor;
     Animation shake;
+    TextView dueDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +85,7 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
                                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                                 .add(R.id.editor_holder, todoListEditor)
                                 .commit();
-                        ;
+
                         itemsAdapter.notifyDataSetChanged();
                         writeTodoItemsFile();
                         return true;
@@ -187,6 +194,39 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
                 .remove(todoListEditor)
                 .commit();
     }
+    public void onDueDateClick(View view){
+        Calendar cal = Calendar.getInstance();
+        TodoListItem item = todoListEditor.getItem();
+        dueDate = todoListEditor.getEtTaskDue();
+        String dueDateString = dueDate.getText().toString();
+        try {
+            if (dueDateString.length() > 0) {
+                cal.setTime(TodoListItem.SIMPLE_DATE_FORMAT.parse(dueDateString));
+            }
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+        DatePickerDialog datePicker = new DatePickerDialog(
+                this,
+                datePickerListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH));
+        datePicker.show();
+    }
+
+    private DatePickerDialog.OnDateSetListener datePickerListener =
+            new DatePickerDialog.OnDateSetListener() {
+
+                // when dialog box is closed, below method will be called.
+                public void onDateSet(DatePicker view, int selectedYear,
+                                      int selectedMonth, int selectedDay) {
+                    String year1 = String.valueOf(selectedYear);
+                    String month1 = String.valueOf(selectedMonth + 1);
+                    String day1 = String.valueOf(selectedDay);
+                    dueDate.setText(day1 + "/" + month1 + "/" + year1);
+                }
+            };
     private void configureInputs() {
         addButton.setEnabled(false);
 
