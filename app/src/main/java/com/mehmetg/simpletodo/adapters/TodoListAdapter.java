@@ -68,9 +68,11 @@ public class TodoListAdapter extends ArrayAdapter<TodoListItem>{
         if (completed) {
             taskDescription.setTypeface(null, Typeface.NORMAL);
             taskDescription.setTextColor(Color.GRAY);
-            tvDueDate.setTextColor(Color.BLACK);
+            tvDueDate.setTextColor(Color.GRAY);
         } else {
             //get today's date
+            taskDescription.setTypeface(null, Typeface.BOLD);
+            taskDescription.setTextColor(Color.BLACK);
             String dueDateString = tvDueDate.getText().toString();
             if (!dueDateString.equals(TodoListItem.NONE) && dueDateString.length() > 0) {
                 try {
@@ -84,6 +86,8 @@ public class TodoListAdapter extends ArrayAdapter<TodoListItem>{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                tvDueDate.setTextColor(Color.BLACK);
             }
 
             //if past due mark date red.
