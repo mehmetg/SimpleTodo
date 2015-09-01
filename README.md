@@ -22,16 +22,17 @@ Simple Todo List for Android
 ## Features:
 
 * Past due, incomplete items show due date red.
+* Due date can be set using a date picker dialogue
 * Task completion indicator
     * Items completed show up grey and normal text.
     * Items not completed show up bold and black.
 
 ## Known Issues:
 
-* Date entry should use date picker.
+* ~~Date entry should use date picker.~~
 * Issue entry should be a fragment and be swapped with edit window.
-* Data should be stored in sqlite, not csv.
-* Data could be passed between activity and fragment without accessors.
+* Data should be stored in sqlite, not csv. (SQLite can be a bit of an overkill here.) 
+* Data could be passed between activity and fragment without accessors or arguments.
 
 ## Sample Walk-Through
 
