@@ -31,8 +31,8 @@ Simple Todo List for Android
 
 * ~~Date entry should use date picker.~~
 * Issue entry should be a fragment and be swapped with edit window.
-* Data should be stored in sqlite, not csv.
-* Data could be passed between activity and fragment without accessors.
+* Data should be stored in sqlite, not csv. (SQLite can be a bit of an overkill here.) 
+* Data could be passed between activity and fragment without accessors or arguments.
 
 ## Sample Walk-Through
 
