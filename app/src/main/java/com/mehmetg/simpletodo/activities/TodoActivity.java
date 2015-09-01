@@ -221,10 +221,10 @@ public class TodoActivity extends AppCompatActivity implements OnFragmentInterac
                 // when dialog box is closed, below method will be called.
                 public void onDateSet(DatePicker view, int selectedYear,
                                       int selectedMonth, int selectedDay) {
-                    String year1 = String.valueOf(selectedYear);
-                    String month1 = String.valueOf(selectedMonth + 1);
-                    String day1 = String.valueOf(selectedDay);
-                    dueDate.setText(day1 + "/" + month1 + "/" + year1);
+                    dueDate.setText(String.format("%02d/%02d/%04d",
+                            selectedMonth + 1,
+                            selectedDay,
+                            selectedYear));
                 }
             };
     private void configureInputs() {
